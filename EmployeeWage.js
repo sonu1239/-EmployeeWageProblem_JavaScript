@@ -19,9 +19,16 @@ function getWorkingHours(empCheck)
     }
 }
 
+//this function for daily wage of employee
+function dailyWage(empHrs)
+{
+    return empHrs * WAGE_PER_HOURS;
+}
+
 let empHrs = 0;
 let totalEmpHrs = 0;
 let totalWorkingDays = 0;
+let empDailyWageArr = new Array();
 
 while (totalEmpHrs <= MAX_HRS_PER_MONTHS && totalWorkingDays < NUM_OF_WORKING_DAYS )
 {
@@ -29,14 +36,20 @@ while (totalEmpHrs <= MAX_HRS_PER_MONTHS && totalWorkingDays < NUM_OF_WORKING_DA
     //gives random value
     let empCheck = Math.floor(Math.random() * 10) % 3;
     //calling function
-    totalEmpHrs += getWorkingHours(empCheck);
-    totalEmpHrs += empHrs;
+    empHrs = getWorkingHours(empCheck);
+    totalEmpHrs = totalEmpHrs +empHrs;
+    empDailyWageArr.push(dailyWage(empHrs));
     if(totalEmpHrs > 100)
     {
         totalEmpHrs -= empHrs;
     }
 }
 
-//calculating employee wage
-let empWage = totalEmpHrs * WAGE_PER_HOURS;
-console.log("Total Hours: " +totalEmpHrs+"\nTotal Working Days: "+NUM_OF_WORKING_DAYS+"\nEmployee Monthly Wage: " + empWage);
+//calculating total employee wage
+let totalEmpWage = totalEmpHrs * WAGE_PER_HOURS;
+//calculating total employee wage using array
+let empWage = dailyWage(totalEmpHrs);
+console.log("Total Hours: " +totalEmpHrs+"\nTotal Working Days: "+NUM_OF_WORKING_DAYS+"\nEmployee Monthly Wage: " + totalEmpWage);
+//display array elements
+console.log("Daily Wage array : " +empDailyWageArr.join(" "));
+console.log("Total Wage using array: " +empWage);
